@@ -4,7 +4,7 @@ class RPS{
     public static int oppChoice,yourChoice;
     public static List<String> choice=new ArrayList<String>();
     public static RPS obj=new RPS();
-    public static int n;
+    public static int n,rounds;
     public static String name1,name2;
     public static void main(String[] args){
        
@@ -14,19 +14,41 @@ class RPS{
         System.out.println("What mode do you want to play:\n1.SinglePlayer\n2.Multiplayer");
         Scanner sc=new Scanner(System.in);
         n=sc.nextInt();
+        System.out.println("How much rounds do you want to play:\nBest of: ");
+        rounds=sc.nextInt();
         
         
         if(n==1){
-        while(opponent<3 && you<3){
+        if(rounds%2==1){    
+        while(opponent<rounds/2 + 1 && you<rounds/2 + 1){
         obj.pickYourChoice();
         System.out.println("\nYour Score: " + you);
         System.out.println("Opponent Score: " + opponent);
             }
-        if(opponent==3){
+        if(opponent>rounds/2){
             System.out.println("\nYOU LOST...\n");
             }
         else{
             System.out.println("\nYOU WON!!\n");
+            }
+            }
+            else{
+                while(opponent<=rounds/2 && you<=rounds/2){
+                    obj.pickYourChoice();
+                    System.out.println("\nYour Score: " + you);
+                    System.out.println("Opponent Score: " + opponent);
+                    if(opponent==rounds/2 && you==rounds/2){
+                        System.out.println("\nIT'S A TIE!");
+                        break;
+                    }
+                }
+                
+                if(opponent>rounds/2){
+                    System.out.println("\nYOU LOST...\n");
+                    }
+                else if(you>rounds/2){
+                    System.out.println("\nYOU WON!!\n");
+                    }
             }
         }
 
@@ -37,7 +59,8 @@ class RPS{
             System.out.println("Enter the name of Player2");
             name2=sc1.next();
             
-            while(P1<3 && P2<3){
+            if(rounds%2==1){
+            while(P1<rounds/2 + 1 && P2<rounds/2 + 1){
             System.out.println("\n" + name1 + ":Enter your choice\n1.Rock\n2.Paper\n3.Scissors");
             oppChoice=sc1.nextInt();
             if(oppChoice==1){
@@ -57,15 +80,52 @@ class RPS{
 
             System.out.println("\n" + name1 + "'s Score is :" + P1);
             System.out.println("\n" + name2 + "'s Score is :" + P2);
+            
 
             }
-            if(P1==3){
+            if(P1>rounds/2){
                 System.out.println("\n" + name1 + " WON !!");
             } 
             else{
-                System.out.println("\n" + name2 + "WON !!");
+                System.out.println("\n" + name2 + " WON !!");
             }
-        }
+            }
+
+            else{
+                while(P1<=rounds/2  && P2<=rounds/2){
+                    System.out.println("\n" + name1 + ":Enter your choice\n1.Rock\n2.Paper\n3.Scissors");
+                    oppChoice=sc1.nextInt();
+                    if(oppChoice==1){
+                        System.out.println("\n" + name1 + " picked Rock");
+                        }
+                    else if(oppChoice==2){
+                        System.out.println("\n" + name1 + " picked Paper");
+                        }
+                    else if(oppChoice==3){
+                        System.out.println("\n" + name1 + "picked Scissors");
+                    }
+                    else{
+                        System.out.println("Enter Valid choice");
+                    }
+                    if(oppChoice==1 || oppChoice==2 || oppChoice==3)
+                        obj.pickYourChoice();
+        
+                    System.out.println("\n" + name1 + "'s Score is :" + P1);
+                    System.out.println("\n" + name2 + "'s Score is :" + P2);
+
+                    if(P1==rounds/2 && P2==rounds/2){
+                        System.out.println("\nIT'S A TIE!");
+                        break;
+                    }
+                }
+                if(P1>rounds/2){
+                    System.out.println("\n" + name1 + " WON !!");
+                } 
+                else if(P2>rounds/2){
+                    System.out.println("\n" + name2 + " WON !!");
+                }
+              }
+            }
         else{
             System.out.println("Enter valid option");
         }
